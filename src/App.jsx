@@ -1,35 +1,32 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+// src/App.jsx
+import React from 'react';
+import Header from './components/Header';
+import Footer from './components/Footer';
+import HomePage from './pages/HomePage';
+import Menu from './pages/Menu';
+import MenuPage from './pages/MenuPage';
+import ContactPage from './pages/ContactPage';
+import './index.css'; // Corrected import path: ContactPage is in 'pages'
 
-function App() {
-  const [count, setCount] = useState(0)
-
+// Main App component that orchestrates the pages
+const App = () => {
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    <div className="min-h-screen bg-gray-100 font-inter antialiased">
+      {/* Tailwind CSS CDN - for local development, you'd typically configure PostCSS */}
+      <script src="https://cdn.tailwindcss.com"></script>
+      <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 
-export default App
+      <Header /> {/* Render the Header component */}
+
+      {/* Main content sections, acting as "pages" */}
+      <HomePage />
+      <Menu />
+      <MenuPage />
+      {/* <ContactPage /> */}
+
+      <Footer /> {/* Render the Footer component */}
+    </div>
+  );
+};
+
+export default App;
