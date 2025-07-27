@@ -44,7 +44,8 @@ const Header = () => {
           {/* Desktop Menu */}
           <div className="hidden sm:flex sm:items-center sm:space-x-8">
             <NavLink href="#">ម៉ឺនុយ</NavLink>
-            <NavLink href="#">ភេសជ្ជៈ</NavLink>
+            <NavLink href="const MenuPage = () => {
+">ភេសជ្ជៈ</NavLink>
             <NavLink href="#">អាហារ</NavLink>
             <NavLink href="#">ហាង</NavLink>
             <NavLink href="#">អំពីយើង</NavLink>

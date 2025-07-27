@@ -4,8 +4,8 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import HomePage from './pages/HomePage';
 import Menu from './pages/Menu';
-import MenuPage from './pages/MenuPage';
-import ContactPage from './pages/ContactPage';
+import About from './pages/About';
+import Contact from './pages/Contact';
 import './index.css'; // Corrected import path: ContactPage is in 'pages'
 
 // Main App component that orchestrates the pages
@@ -21,7 +21,8 @@ const App = () => {
       {/* Main content sections, acting as "pages" */}
       <HomePage />
       <Menu />
-      <MenuPage />
+      <About />
+      <Contact/>
       {/* <ContactPage /> */}
 
       <Footer /> {/* Render the Footer component */}

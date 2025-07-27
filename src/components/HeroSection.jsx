@@ -19,8 +19,8 @@ const HeroSection = () => {
     },
     {
       id: 3,
-      image: './images/slide3.jpg',
-      imageLarge: './images/slide3.jpg',
+      image: './images/background.png',
+      imageLarge: './images/background.png',
       headingKh: 'គ្រប់ពែងគឺជារឿងរ៉ាវមួយ',
       paragraphKh: 'ចែករំលែកគ្រាដ៏ពិសេសជាមួយកាហ្វេដែលផលិតដោយគុណភាពខ្ពស់។'
     }
