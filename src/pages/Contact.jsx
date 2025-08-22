@@ -16,7 +16,7 @@ const Contact = () => {
   };
 
   return (
-    <section id="contact" className="py-12 sm:py-16 md:py-20 bg-gray-100">
+    <section id="contact" className="mt-16 py-12 sm:py-16 md:py-20 bg-gray-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Hero Section */}
         <div className="text-center mb-8 sm:mb-12 md:mb-16 animate__animated animate__fadeIn">

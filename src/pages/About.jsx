@@ -5,20 +5,17 @@ const About = () => {
     {
       title: 'បេសកកម្មរបស់យើង',
       description: 'នៅការហ្វេសាកល CafeSakal យើងប្តេជ្ញាបម្រើកាហ្វេ និងអាហារដែលមានគុណភាពខ្ពស់ ដោយប្រើគ្រឿងផ្សំស្រស់ និងបច្ចេកទេសប្រកបដោយច្នៃប្រឌិត។',
-      icon: './images/mission.png',
-      iconLarge: './images/mission.png'
+      image: './images/mission.png',
     },
     {
       title: 'ប្រវត្តិរបស់យើង',
       description: 'បង្កើតឡើងនៅឆ្នាំ ២០២០ នៅភ្នំពេញ យើងចាប់ផ្តើមជាមួយចក្ខុវិស័យនាំយកបទពិសោធន៍កាហ្វេបែបអន្តរជាតិមកកម្ពុជា។',
-      icon: './images/history.png',
-      iconLarge: './images/history.png'
+      image: './images/history.png',
     },
     {
       title: 'តម្លៃរបស់យើង',
       description: 'គុណភាព សហគមន៍ និងនិរន្តរភាពគឺជាសសរស្តម្ភនៃការងារយើង។ យើងគាំទ្រកសិករក្នុងស្រុក និងរក្សាបរិស្ថានឲបានល្អ។',
-      icon: './images/price.png',
-      iconLarge: './images/price.png'
+      image: './images/price.png',
     }
   ];
 
@@ -41,26 +38,24 @@ const About = () => {
   ];
 
   return (
-    <section id="about" className="py-12 sm:py-16 md:py-20 bg-gray-100">
+    <section id="about" className="mt-16 py-12 sm:py-16 md:py-20 bg-gray-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Hero Section */}
-        <div className="relative h-64 sm:h-80 md:h-96 lg:h-[28rem] max-h-[90vh] w-full aspect-[16/9] bg-gray-200 rounded-lg overflow-hidden mb-8 sm:mb-12 animate__animated animate__fadeIn">
+        <div className="relative h-[50vh] sm:h-[60vh] md:h-[70vh] lg:h-[80vh] flex items-center justify-center text-center p-2 sm:p-4 md:p-6 rounded-b-xl overflow-hidden mb-8 sm:mb-12 animate__animated animate__fadeIn">
           <img
             src="./images/slide3.jpg"
-            srcSet="./images/slide3.jpg"
-            sizes="(max-width: 768px) 100vw, 1200px"
             alt="CafeSakal coffee shop ambiance"
             className="w-full h-full max-w-full max-h-full object-cover object-center"
             loading="lazy"
           />
-          <div className="absolute inset-0 bg-black opacity-40 sm:opacity-30 rounded-lg"></div>
+          <div className="absolute inset-0 bg-black opacity-60 sm:opacity-50 rounded-b-xl"></div>
           <div className="absolute inset-0 flex items-center justify-center text-center text-white p-4 sm:p-6 md:p-8">
             <div className="max-w-2xl sm:max-w-3xl md:max-w-4xl animate__animated animate__fadeIn">
               <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold mb-3 sm:mb-4 md:mb-6 drop-shadow-lg font-['Hanuman']">
                 អំពីការហ្វេសាកល CafeSakal
               </h1>
               <p className="text-sm sm:text-base md:text-lg font-light font-['Hanuman']">
-                យើងជាហាងកាហ្វេដែលប្តេជ்உាចិត្តផ្តល់នូវបទពិសោធន៍កាហ្វេដ៏អស្ចារ្យ និងបរិយាកាសដ៏កក់ក្តៅសម្រាប់សហគមន៍។
+                យើងជាហាងកាហ្វេដែលប្តេជ្ញាចិត្តផ្តល់នូវបទពិសោធន៍កាហ្វេដ៏អស្ចារ្យ និងបរិយាកាសដ៏កក់ក្តៅសម្រាប់សហគមន៍។
               </p>
             </div>
           </div>
@@ -74,9 +69,7 @@ const About = () => {
               className={`bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow duration-300 animate__animated animate__fadeInUp animate__delay-${index * 2}s`}
             >
               <img
-                src={section.icon}
-                srcSet={`${section.icon} 200w, ${section.iconLarge} 400w`}
-                sizes="(max-width: 768px) 200px, 400px"
+                src={section.image}
                 alt={`រូបតំណាង ${section.title}`}
                 className="w-12 h-12 sm:w-16 sm:h-16 mx-auto mb-4 rounded-full object-cover"
                 loading="lazy"

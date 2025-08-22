@@ -1,15 +1,14 @@
 // src/index.js
 import React from 'react';
-import { createRoot } from 'react-dom/client'; // Use createRoot for React 18+
-import App from './App'; // Import the main App component
+import ReactDOM from 'react-dom/client';
+import App from './App.jsx';
+import './index.css';
+import { BrowserRouter } from 'react-router-dom';
 
-// Find the root element in public/index.html
-const container = document.getElementById('root');
-const root = createRoot(container); // Create a root
-
-// Render the App component into the root
-root.render(
+ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <App />
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
   </React.StrictMode>
 );

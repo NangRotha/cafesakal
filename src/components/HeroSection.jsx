@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 const HeroSection = () => {
   // Define an array of slides with optimized Starbucks-themed images and Khmer text
@@ -46,8 +47,7 @@ const HeroSection = () => {
           srcSet={`${slides[currentSlide].image} 600w, ${slides[currentSlide].imageLarge} 1200w`}
           sizes="(max-width: 868px) 600px, 1200px"
           alt="Starbucks coffee background"
-          className="w-full h-full object-cover object-center opacity-0 transition-opacity duration-700 ease-in-out"
-          style={{ opacity: 1, willChange: 'opacity' }}
+          className="w-full h-full object-cover object-center transition-opacity duration-700 ease-in-out"
           loading="lazy"
         />
       </div>
@@ -61,12 +61,12 @@ const HeroSection = () => {
         <p className="text-sm sm:text-base md:text-lg lg:text-xl font-light mb-4 sm:mb-6 md:mb-8 font-['Noto_Sans_Khmer']">
           {slides[currentSlide].paragraphKh}
         </p>
-        <a
-          href="#menu"
+        <Link
+          to="/menu"
           className="inline-block bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 sm:py-2.5 sm:px-5 md:py-3 md:px-6 rounded-full shadow-lg transform transition duration-300 hover:scale-105 text-sm sm:text-base md:text-lg font-['Noto_Sans_Khmer'] min-w-[44px] min-h-[44px]"
         >
           ស្វែងរកភេសជ្ជៈរបស់អ្នក
-        </a>
+        </Link>
       </div>
 
       {/* Slide Indicators */}

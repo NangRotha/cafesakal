@@ -1,10 +1,14 @@
 // src/pages/HomePage.js
 import React from 'react';
 import HeroSection from '../components/HeroSection'; // Import the HeroSection component
+import AboutUsSection from '../components/AboutUsSection';
 
 const HomePage = () => {
   return (
-    <HeroSection /> // Render the HeroSection component
+    <>
+      <HeroSection />
+      <AboutUsSection />
+    </>
   );
 };
 

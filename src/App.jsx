@@ -1,33 +1,27 @@
 // src/App.jsx
 import React from 'react';
+import { Routes, Route } from 'react-router-dom';
+import HomePage from './pages/HomePage';
+import About from './pages/About';
+import Menu from './pages/Menu';
+import Contact from './pages/Contact';
 import Header from './components/Header';
 import Footer from './components/Footer';
-import HomePage from './pages/HomePage';
-import Menu from './pages/Menu';
-import About from './pages/About';
-import Contact from './pages/Contact';
-import './index.css'; // Corrected import path: ContactPage is in 'pages'
+import './App.css';
 
-// Main App component that orchestrates the pages
-const App = () => {
+function App() {
   return (
-    <div className="min-h-screen bg-gray-100 font-inter antialiased">
-      {/* Tailwind CSS CDN - for local development, you'd typically configure PostCSS */}
-      <script src="https://cdn.tailwindcss.com"></script>
-      <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-
-      <Header /> {/* Render the Header component */}
-
-      {/* Main content sections, acting as "pages" */}
-      <HomePage />
-      <Menu />
-      <About />
-      <Contact/>
-      {/* <ContactPage /> */}
-
-      <Footer /> {/* Render the Footer component */}
+    <div className="App">
+      <Header />
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/menu" element={<Menu />} />
+        <Route path="/contact" element={<Contact />} />
+      </Routes>
+      <Footer />
     </div>
   );
-};
+}
 
 export default App;
