@@ -2,17 +2,43 @@ import React, { useState } from 'react';
 
 const Contact = () => {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+  const [alert, setAlert] = useState(null); // { message: '', type: 'success' | 'error' }
+
+  const showAlert = (message, type) => {
+    setAlert({ message, type });
+    setTimeout(() => {
+      setAlert(null);
+    }, 3000); // Clear alert after 3 seconds
+  };
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Placeholder for form submission logic (e.g., console log for demo)
-    console.log('Form submitted:', formData);
-    // Reset form
-    setFormData({ name: '', email: '', message: '' });
+    // setError(''); // Clear any previous errors
+
+    try {
+      const response = await fetch('http://localhost:3000/contactMessages', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to send message');
+      }
+
+      await response.json(); // Or just check response.ok
+      showAlert('សាររបស់អ្នកត្រូវបានផ្ញើដោយជោគជ័យ!', 'success');
+      setFormData({ name: '', email: '', message: '' }); // Reset form
+    } catch (err) {
+      showAlert('បរាជ័យក្នុងការផ្ញើសារ. សូមព្យាយាមម្តងទៀត.', 'error');
+      console.error('Contact form submission error:', err);
+    }
   };
 
   return (
@@ -27,6 +53,12 @@ const Contact = () => {
             យើងរង់ចាំអ្នកពីCafeSakal។
           </p>
         </div>
+
+        {alert && (
+          <div className={`mb-4 p-3 rounded-md text-white ${alert.type === 'success' ? 'bg-green-500' : 'bg-red-500'}`}>
+            {alert.message}
+          </div>
+        )}
 
         {/* Contact Section */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8">

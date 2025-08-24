@@ -1,17 +1,29 @@
 // src/components/MenuItem.js
 import React from 'react';
 
-const MenuItem = ({ title, description, items, credits }) => {
+const MenuItem = ({ name, description, price, image, onOrder }) => {
   return (
-    <div className="bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition duration-300 transform hover:-translate-y-2">
-      <h4 className="text-3xl font-semibold text-indigo-700 mb-4">{title}</h4>
-      <p className="text-gray-600 mb-4">{description}</p>
-      <ul className="list-disc list-inside text-gray-700 mb-4">
-        {items.map((item, index) => (
-          <li key={index}>{item}</li>
-        ))}
-      </ul>
-      <span className="text-blue-600 font-bold text-2xl">Credits: {credits} Beans</span>
+    <div class="w-72 bg-white shadow-md rounded-xl duration-500 hover:scale-105 hover:shadow-xl">
+      <a href="#">
+        <img src={image} alt={name} class="h-80 w-72 object-cover rounded-t-xl" />
+        <div class="px-4 py-3 w-72">
+          {/* <span class="text-gray-400 mr-3 uppercase text-xs">Brand</span> */}
+          <p class="text-lg font-bold text-black truncate block capitalize">{name}</p>
+          <p class="text-sm text-gray-600 truncate block capitalize">{description}</p>
+          <div class="flex items-center">
+            <p class="text-lg font-semibold text-black cursor-auto my-3">{price}</p>
+            {/* <del>
+              <p class="text-sm text-gray-600 cursor-auto ml-2">$199</p>
+            </del> */}
+            <div class="ml-auto cursor-pointer" onClick={onOrder}>
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-bag-plus" viewBox="0 0 16 16">
+                <path fillRule="evenodd" d="M8 7.5a.5.5 0 0 1 .5.5v1.5H10a.5.5 0 0 1 0 1H8.5V12a.5.5 0 0 1-1 0v-1.5H6a.5.5 0 0 1 0-1h1.5V8a.5.5 0 0 1 .5-.5z" />
+                <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5z" />
+              </svg>
+            </div>
+          </div>
+        </div>
+      </a>
     </div>
   );
 };

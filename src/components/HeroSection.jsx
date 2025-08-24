@@ -28,26 +28,38 @@ const HeroSection = () => {
   ];
 
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [imageAnimationClass, setImageAnimationClass] = useState('opacity-0 scale-110');
 
   // Auto-slide functionality
   useEffect(() => {
+    // Reset animation class for new slide
+    setImageAnimationClass('opacity-0 scale-110');
+
+    const animationTimeout = setTimeout(() => {
+      setImageAnimationClass('opacity-100 scale-100');
+    }, 50); // Small delay to ensure the reset class is applied before the transition
+
     const interval = setInterval(() => {
       setCurrentSlide((prevSlide) => (prevSlide + 1) % slides.length);
     }, 5000); // Change slide every 5 seconds
 
-    return () => clearInterval(interval); // Clean up the interval on component unmount
-  }, [slides.length]);
+    return () => {
+      clearInterval(interval); // Clean up the interval on component unmount
+      clearTimeout(animationTimeout); // Clean up the timeout
+    };
+  }, [currentSlide, slides.length]); // Rerun effect when currentSlide changes
 
   return (
     <section id="home" className="mt-16 relative h-[50vh] sm:h-[60vh] md:h-[70vh] lg:h-[80vh] flex items-center justify-center text-center p-2 sm:p-4 md:p-6 rounded-b-xl overflow-hidden">
       {/* Background Image with transition */}
       <div className="absolute inset-0 bg-gray-200">
         <img
+          key={slides[currentSlide].id} // Add key to force re-render
           src={slides[currentSlide].image}
           srcSet={`${slides[currentSlide].image} 600w, ${slides[currentSlide].imageLarge} 1200w`}
           sizes="(max-width: 868px) 600px, 1200px"
           alt="Starbucks coffee background"
-          className="w-full h-full object-cover object-center transition-opacity duration-700 ease-in-out"
+          className={`w-full h-full object-cover object-center transition-opacity transition-transform duration-700 ease-in-out ${imageAnimationClass}`}
           loading="lazy"
         />
       </div>
