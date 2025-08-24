@@ -11,7 +11,7 @@ const Header = () => {
   };
 
   return (
-    <nav className="bg-white shadow-md fixed w-full z-10 top-0">
+    <nav className="bg-white shadow-md fixed w-full z-10 top-0 ">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
           {/* Logo */}
@@ -29,7 +29,7 @@ const Header = () => {
           </div>
 
           {/* Desktop Menu */}
-          <div className="hidden sm:flex sm:items-center sm:space-x-8">
+          <div className="hidden sm:flex sm:items-center sm:space-x-8 flex-grow justify-center">
             <NavLink
               to="/"
               className={({ isActive }) =>
@@ -97,7 +97,7 @@ const Header = () => {
 
       {/* Mobile Menu */}
       <div className={`${isMenuOpen ? 'block' : 'hidden'} sm:hidden`} id="mobile-menu">
-        <div className="pt-2 pb-3 space-y-1 bg-white border-t border-gray-200">
+        <div className="pt-2 pb-3 space-y-1 bg-white border-t border-gray-200 text-center">
           <NavLink
             to="/menu"
             className={({ isActive }) =>
@@ -136,7 +136,7 @@ const Header = () => {
           </NavLink>
           <NavLink
             to="/contact"
-            className="block px-4 py-2 text-base font-medium bg-green-600 text-white rounded-full mx-3 hover:bg-green-700 transition-colors duration-200"
+            className="block px-4 py-2 text-base font-medium bg-green-600 text-white rounded-full w-fit mx-auto hover:bg-green-700 transition-colors duration-200"
             onClick={toggleMenu}
           >
             ចូលរួមឥឡូវនេះ
