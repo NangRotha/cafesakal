@@ -15,7 +15,7 @@ const MenuPage = () => {
   }, []);
 
   const fetchMenuItems = () => {
-    fetch('http://localhost:3000/menuItems')
+    fetch('https://nangrotha.github.io/host_api/menuItems.json')
       .then(response => response.json())
       .then(data => setMenuItems(data))
       .catch(error => {
