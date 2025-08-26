@@ -7,6 +7,7 @@ import Menu from './pages/Menu';
 import Contact from './pages/Contact';
 import Dashboard from './pages/Dashboard';
 import Login from './pages/Login';
+import EventDiscounts from './pages/EventDiscounts'; // Import the new EventDiscounts component
 import NotFoundPage from './pages/NotFoundPage'; // Import the NotFoundPage component
 import OfflineIndicator from './components/OfflineIndicator'; // Import the OfflineIndicator component
 import Header from './components/Header';
@@ -53,6 +54,7 @@ function App() {
         <Route path="/menu" element={<Menu />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/login" element={<Login setAuth={setAuth} />} />
+        <Route path="/event-discounts" element={<EventDiscounts />} /> {/* Add route for EventDiscounts */}
         <Route
           path="/dashboard"
           element={

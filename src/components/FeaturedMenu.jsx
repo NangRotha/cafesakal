@@ -1,20 +1,57 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import MenuItem from './MenuItem';
+import OrderForm from './OrderForm'; // Import the OrderForm component
+import { endpoints } from '../api/apiConfig';
 
 const FeaturedMenu = () => {
   const [menuItems, setMenuItems] = useState([]);
+  const [showOrderForm, setShowOrderForm] = useState(false);
+  const [selectedMenuItem, setSelectedMenuItem] = useState(null);
+  const [alertMessage, setAlertMessage] = useState('');
+  const [alertType, setAlertType] = useState(''); // 'success' or 'error'
 
   useEffect(() => {
-    fetch('https://nangrotha.github.io/host_api/menuItems.json')
+    fetch(endpoints.menuItems)
       .then(response => response.json())
       .then(data => setMenuItems(data.slice(0, 6)))
       .catch(error => console.error('Error fetching menu items:', error));
   }, []);
 
+  const handleOrderClick = (item) => {
+    setSelectedMenuItem(item);
+    setShowOrderForm(true);
+    setAlertMessage(''); // Clear any previous alerts
+  };
+
+  const handleCloseOrderForm = () => {
+    setShowOrderForm(false);
+    setSelectedMenuItem(null);
+  };
+
+  const handleOrderSuccess = (message) => {
+    setAlertMessage(message);
+    setAlertType('success');
+    handleCloseOrderForm();
+  };
+
+  const handleOrderError = (message) => {
+    setAlertMessage(message);
+    setAlertType('error');
+  };
+
   return (
     <section id="featured" className="mt-16 py-12 bg-gray-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {alertMessage && (
+          <div
+            className={`mb-4 p-3 rounded-md text-white ${alertType === 'success' ? 'bg-green-500' : 'bg-red-500'} animate__animated animate__fadeInUp`}
+            role="alert"
+          >
+            {alertMessage}
+          </div>
+        )}
+
         <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-center text-green-600 mb-8 sm:mb-12 font-['Hanuman'] animate__animated animate__fadeIn">
           ភេសជ្ជៈពេញនិយម
         </h2>
@@ -27,9 +64,19 @@ const FeaturedMenu = () => {
               description={item.description}
               price={item.price}
               image={item.image}
+              onOrder={() => handleOrderClick(item)} // Pass handleOrderClick to MenuItem
             />
           ))}
         </div>
+
+        {showOrderForm && selectedMenuItem && (
+          <OrderForm
+            menuItem={selectedMenuItem}
+            onClose={handleCloseOrderForm}
+            onOrderSuccess={handleOrderSuccess}
+            onOrderError={handleOrderError}
+          />
+        )}
 
         <div className="mt-8 sm:mt-12 text-center">
           <Link

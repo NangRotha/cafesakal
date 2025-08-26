@@ -2,7 +2,7 @@ import React from 'react';
 
 const AboutUsSection = () => {
   return (
-    <section id="about" className="mt-16 py-20 bg-gradient-to-br from-stone-100 to-amber-100 relative overflow-hidden">
+    <section id="about" className="mt-5 py-20 bg-gradient-to-br from-stone-100 to-amber-100 relative overflow-hidden">
       {/* Background pattern */}
       <div className="absolute inset-0 z-0 opacity-10">
         <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/clean-gray-paper.png')] "></div>

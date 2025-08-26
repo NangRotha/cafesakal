@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { endpoints } from '../api/apiConfig';
 
 const Login = ({ setAuth }) => {
   const [username, setUsername] = useState('');
@@ -12,7 +13,7 @@ const Login = ({ setAuth }) => {
     setError('');
 
     try {
-      const response = await fetch('https://nangrotha.github.io/host_api/users.json');
+      const response = await fetch(endpoints.users);
       if (!response.ok) {
         throw new Error('Failed to fetch user data');
       }

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
   return (
@@ -42,21 +43,18 @@ const Footer = () => {
               តំណភ្ជាប់រហ័ស
             </h3>
             <nav className="space-y-3 text-sm sm:text-base font-['Hanuman']">
-              <a href="/" className="block hover:text-green-500 transition-colors duration-300 hover:animate__animated hover:animate__pulse" aria-label="ទៅកាន់ទំព័រដើម">
+              <Link to="/" className="block hover:text-green-500 transition-colors duration-300 hover:animate__animated hover:animate__pulse" aria-label="ទៅកាន់ទំព័រដើម">
                 ទំព័រដើម
-              </a>
-              <a href="/about" className="block hover:text-green-500 transition-colors duration-300 hover:animate__animated hover:animate__pulse" aria-label="ទៅកាន់ទំព័រអំពី">
+              </Link>
+              <Link to="/about" className="block hover:text-green-500 transition-colors duration-300 hover:animate__animated hover:animate__pulse" aria-label="ទៅកាន់ទំព័រអំពី">
                 អំពី
-              </a>
-              <a href="/our-story" className="block hover:text-green-500 transition-colors duration-300 hover:animate__animated hover:animate__pulse" aria-label="ទៅកាន់ទំព័ររឿងរ៉ាវរបស់យើង">
-                រឿងរ៉ាវរបស់យើង
-              </a>
-              <a href="/contact" className="block hover:text-green-500 transition-colors duration-300 hover:animate__animated hover:animate__pulse" aria-label="ទៅកាន់ទំព័រទាក់ទង">
+              </Link>
+              <Link to="/contact" className="block hover:text-green-500 transition-colors duration-300 hover:animate__animated hover:animate__pulse" aria-label="ទៅកាន់ទំព័រទាក់ទង">
                 ទាក់ទង
-              </a>
-              <a href="/menu" className="block hover:text-green-500 transition-colors duration-300 hover:animate__animated hover:animate__pulse" aria-label="ទៅកាន់ទំព័រម៉ឺនុយ">
+              </Link>
+              <Link to="/menu" className="block hover:text-green-500 transition-colors duration-300 hover:animate__animated hover:animate__pulse" aria-label="ទៅកាន់ទំព័រម៉ឺនុយ">
                 ម៉ឺនុយ
-              </a>
+              </Link>
             </nav>
           </div>
 

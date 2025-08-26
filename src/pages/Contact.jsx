@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { endpoints } from '../api/apiConfig';
 
 const Contact = () => {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
@@ -20,7 +21,7 @@ const Contact = () => {
     // setError(''); // Clear any previous errors
 
     try {
-      const response = await fetch('http://localhost:3000/contactMessages', {
+      const response = await fetch(endpoints.contactMessages, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
