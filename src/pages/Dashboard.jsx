@@ -19,7 +19,7 @@ const Dashboard = () => {
   };
 
   const fetchMenuItems = () => {
-    fetch('http://localhost:3000/menuItems')
+    fetch('https://nangrotha.github.io/host_api/menuItems.json')
       .then(response => response.json())
       .then(data => setMenuItems(data))
       .catch(error => {
@@ -34,7 +34,7 @@ const Dashboard = () => {
 
   const handleAddSubmit = (e) => {
     e.preventDefault();
-    fetch('http://localhost:3000/menuItems', {
+    fetch('https://nangrotha.github.io/host_api/menuItems.json', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -60,7 +60,7 @@ const Dashboard = () => {
 
   const handleUpdateSubmit = (e) => {
     e.preventDefault();
-    fetch(`http://localhost:3000/menuItems/${editingItem.id}`, {
+    fetch(`https://nangrotha.github.io/host_api/menuItems.json${editingItem.id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -80,7 +80,7 @@ const Dashboard = () => {
   };
 
   const handleDelete = (id) => {
-    fetch(`http://localhost:3000/menuItems/${id}`, {
+    fetch(`https://nangrotha.github.io/host_api/menuItems.json${id}`, {
       method: 'DELETE',
     })
       .then(() => {

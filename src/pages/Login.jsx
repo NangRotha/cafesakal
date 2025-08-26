@@ -12,7 +12,7 @@ const Login = ({ setAuth }) => {
     setError('');
 
     try {
-      const response = await fetch('http://localhost:3000/users');
+      const response = await fetch('https://nangrotha.github.io/host_api/users.json');
       if (!response.ok) {
         throw new Error('Failed to fetch user data');
       }

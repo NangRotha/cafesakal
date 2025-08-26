@@ -6,7 +6,7 @@ const FeaturedMenu = () => {
   const [menuItems, setMenuItems] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:3000/menuItems')
+    fetch('https://nangrotha.github.io/host_api/menuItems.json')
       .then(response => response.json())
       .then(data => setMenuItems(data.slice(0, 6)))
       .catch(error => console.error('Error fetching menu items:', error));
