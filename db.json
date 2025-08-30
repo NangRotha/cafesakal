@@ -59,8 +59,8 @@
     {
       "id": "567f",
       "name": "pizza",
-      "description": "big pizza",
-      "price": "10",
+      "description": "Khmer Pizza",
+      "price": "5",
       "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmomF1DksRYo9MLTC6zi2qx1XjX7R5PSqPYQ&s"
     }
   ],
@@ -90,23 +90,78 @@
       "name": "mey",
       "email": "sivmey22@gmail.com",
       "message": "order coffee 1 can"
+    },
+    {
+      "id": "a8bc",
+      "name": "hoho",
+      "email": "ho@gmail.com",
+      "message": "Aut quaerat laudanti"
     }
   ],
   "orders": [
     {
-      "id": "2f67",
-      "menuItemId": "4",
-      "menuItemName": "ស្មូធីស្វាយ (Mango Smoothie)",
-      "customerName": "Linus Cook",
+      "id": "997a",
+      "menuItemId": "2",
+      "menuItemName": "ឡាតេ (Latte)",
+      "customerName": "rotha",
       "quantity": 1,
-      "notes": "Aute autem libero mi",
-      "location": "Consectetur ex dolor",
-      "customerPhone": "+1 (661) 417-4521",
-      "orderDate": "2025-08-26T07:47:59.101Z",
-      "discountApplied": false,
-      "discountAmount": 0,
-      "appliedDiscountName": "",
-      "finalPrice": 5
+      "notes": "hello",
+      "location": "kamchaymear, prey veng",
+      "customerPhone": "500144565",
+      "orderDate": "2025-08-29T13:36:41.807Z",
+      "discountApplied": true,
+      "discountAmount": 2,
+      "appliedDiscountName": "កម្មង់",
+      "finalPrice": 8,
+      "paymentStatus": "paid"
+    },
+    {
+      "id": "3abb",
+      "menuItemId": "5",
+      "menuItemName": "អាវ៉ូកាដូតូស្ត (Avocado Toast)",
+      "customerName": "Randall Alvarez",
+      "quantity": 2,
+      "notes": "Sapiente tempore ut",
+      "location": "Laborum Consequat ",
+      "customerPhone": "+1 (661) 456-4658",
+      "orderDate": "2025-08-29T13:45:03.348Z",
+      "discountApplied": true,
+      "discountAmount": 5,
+      "appliedDiscountName": "កម្មង់",
+      "finalPrice": 5,
+      "paymentStatus": "paid"
+    },
+    {
+      "id": "c76b",
+      "menuItemId": "5",
+      "menuItemName": "អាវ៉ូកាដូតូស្ត (Avocado Toast)",
+      "customerName": "Randall Alvarez",
+      "quantity": 2,
+      "notes": "Sapiente tempore ut",
+      "location": "Laborum Consequat ",
+      "customerPhone": "+1 (661) 456-4658",
+      "orderDate": "2025-08-29T13:45:04.975Z",
+      "discountApplied": true,
+      "discountAmount": 5,
+      "appliedDiscountName": "កម្មង់",
+      "finalPrice": 5,
+      "paymentStatus": "paid"
+    },
+    {
+      "id": "1f62",
+      "menuItemId": "3",
+      "menuItemName": "កូលប៊្រូ (Cold Brew)",
+      "customerName": "hohp",
+      "quantity": 3,
+      "notes": "hello",
+      "location": "kamchaymear, prey veng",
+      "customerPhone": "01234",
+      "orderDate": "2025-08-29T13:47:25.964Z",
+      "discountApplied": true,
+      "discountAmount": 6,
+      "appliedDiscountName": "កម្មង់",
+      "finalPrice": 24,
+      "paymentStatus": "paid"
     }
   ],
   "discounts": [
@@ -115,8 +170,8 @@
       "name": "កម្មង់",
       "type": "percentage",
       "value": "20",
-      "startDate": "2025-08-26T00:00",
-      "endDate": "2025-08-27T23:59",
+      "startDate": "2025-08-29T00:00",
+      "endDate": "2025-08-31T23:59",
       "active": true
     },
     {
@@ -124,8 +179,8 @@
       "name": "ទិញផ្ទាល់",
       "type": "percentage",
       "value": "50",
-      "startDate": "1971-09-26T22:29",
-      "endDate": "2003-09-08T08:26",
+      "startDate": "2025-08-29T22:29",
+      "endDate": "2025-08-31T01:26",
       "active": true
     }
   ]

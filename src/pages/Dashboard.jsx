@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { endpoints } from '../api/apiConfig';
+import DashboardNavbar from '../components/DashboardNavbar';
 
 const Dashboard = () => {
   const [menuItems, setMenuItems] = useState([]);
@@ -299,9 +300,11 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="mt-16 p-8 bg-gray-50 min-h-screen font-['Noto_Sans_Khmer']">
-      <div className="max-w-7xl mx-auto bg-white p-10 rounded-xl shadow-lg">
-        <h1 className="text-4xl font-extrabold text-gray-800 mb-10 text-center border-b-2 pb-4 border-gray-200 font-['Noto_Sans_Khmer']">គ្រប់គ្រងមុខម្ហូប</h1>
+    <div className="bg-gray-50 min-h-screen font-['Noto_Sans_Khmer']">
+      <DashboardNavbar />
+      <div className="pt-20 p-8">
+        <div className="max-w-7xl mx-auto bg-white p-10 rounded-xl shadow-lg">
+          <h1 className="text-4xl font-extrabold text-gray-800 mb-10 text-center border-b-2 pb-4 border-gray-200 font-['Noto_Sans_Khmer']">គ្រប់គ្រងមុខម្ហូប</h1>
 
         <div className="flex justify-center mb-8 space-x-4">
           <button
@@ -672,7 +675,7 @@ const Dashboard = () => {
           </div>
         )}
 
-        <div className="bg-white rounded-lg shadow-md p-6 mt-8">
+        <div id="discounts-section" className="bg-white rounded-lg shadow-md p-6 mt-8">
           <h3 className="text-2xl font-bold text-gray-800 mb-4 font-['Noto_Sans_Khmer']">បញ្ជីការបញ្ចុះតម្លៃ</h3>
           <div className="overflow-x-auto">
             <table className="min-w-full divide-y divide-gray-200">
@@ -717,7 +720,7 @@ const Dashboard = () => {
           </div>
         </div>
 
-        <div className="bg-white rounded-lg shadow-md p-6">
+        <div id="menu-section" className="bg-white rounded-lg shadow-md p-6">
           <h3 className="text-2xl font-bold text-gray-800 mb-4 font-['Noto_Sans_Khmer']">បញ្ជីមុខម្ហូប</h3>
           <div className="overflow-x-auto">
             <table className="min-w-full divide-y divide-gray-200">
@@ -761,7 +764,7 @@ const Dashboard = () => {
         </div>
 
         {showOrders && (
-          <div className="bg-white rounded-lg shadow-md p-6 mt-8">
+          <div id="orders-section" className="bg-white rounded-lg shadow-md p-6 mt-8">
             <h3 className="text-2xl font-bold text-gray-800 mb-4 font-['Noto_Sans_Khmer']">បញ្ជីការកម្ម៉ង់</h3>
             <div className="overflow-x-auto">
               <table className="min-w-full divide-y divide-gray-200">
@@ -856,6 +859,7 @@ const Dashboard = () => {
             </div>
           </div>
         )}
+        </div>
       </div>
     </div>
   );
