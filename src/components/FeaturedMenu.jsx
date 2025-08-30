@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import MenuItem from './MenuItem';
-import OrderForm from './OrderForm'; // Import the OrderForm component
+import ShoppingCart from './ShoppingCart';
+import OrderForm from './OrderForm';
 import { endpoints } from '../api/apiConfig';
 
 const FeaturedMenu = () => {
   const [menuItems, setMenuItems] = useState([]);
+  const [cartItems, setCartItems] = useState([]);
+  const [showCart, setShowCart] = useState(false);
   const [showOrderForm, setShowOrderForm] = useState(false);
-  const [selectedMenuItem, setSelectedMenuItem] = useState(null);
   const [alertMessage, setAlertMessage] = useState('');
   const [alertType, setAlertType] = useState(''); // 'success' or 'error'
 
@@ -18,20 +20,54 @@ const FeaturedMenu = () => {
       .catch(error => console.error('Error fetching menu items:', error));
   }, []);
 
-  const handleOrderClick = (item) => {
-    setSelectedMenuItem(item);
+  const handleAddToCart = (item) => {
+    const existingItem = cartItems.find(cartItem => cartItem.id === item.id);
+    if (existingItem) {
+      setCartItems(cartItems.map(cartItem =>
+        cartItem.id === item.id
+          ? { ...cartItem, quantity: cartItem.quantity + 1 }
+          : cartItem
+      ));
+    } else {
+      setCartItems([...cartItems, { ...item, quantity: 1 }]);
+    }
+    setAlertMessage('បានបន្ថែមទៅកន្ត្រកទិញ!');
+    setAlertType('success');
+    setTimeout(() => setAlertMessage(''), 3000);
+  };
+
+  const handleUpdateQuantity = (id, newQuantity) => {
+    if (newQuantity === 0) {
+      handleRemoveItem(id);
+    } else {
+      setCartItems(cartItems.map(item =>
+        item.id === id ? { ...item, quantity: newQuantity } : item
+      ));
+    }
+  };
+
+  const handleRemoveItem = (id) => {
+    setCartItems(cartItems.filter(item => item.id !== id));
+  };
+
+  const handleCloseCart = () => {
+    setShowCart(false);
+  };
+
+  const handleProceedToOrder = () => {
+    setShowCart(false);
     setShowOrderForm(true);
     setAlertMessage(''); // Clear any previous alerts
   };
 
   const handleCloseOrderForm = () => {
     setShowOrderForm(false);
-    setSelectedMenuItem(null);
   };
 
   const handleOrderSuccess = (message) => {
     setAlertMessage(message);
     setAlertType('success');
+    setCartItems([]); // Clear cart after successful order
     handleCloseOrderForm();
   };
 
@@ -60,18 +96,46 @@ const FeaturedMenu = () => {
           {menuItems.map((item) => (
             <MenuItem
               key={item.id}
+              id={item.id}
               name={item.name}
               description={item.description}
               price={item.price}
               image={item.image}
-              onOrder={() => handleOrderClick(item)} // Pass handleOrderClick to MenuItem
+              onAddToCart={handleAddToCart}
             />
           ))}
         </div>
 
-        {showOrderForm && selectedMenuItem && (
+        {/* Cart Button */}
+        {cartItems.length > 0 && (
+          <div className="fixed bottom-4 right-4 z-40">
+            <button
+              onClick={() => setShowCart(true)}
+              className="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-4 rounded-full shadow-lg flex items-center space-x-2"
+            >
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-1.5 6M7 13l-1.5-6M17 13v6a2 2 0 01-2 2H9a2 2 0 01-2-2v-6m8 0V9a2 2 0 00-2-2H9a2 2 0 00-2 2v4.01" />
+              </svg>
+              <span>{cartItems.length}</span>
+            </button>
+          </div>
+        )}
+
+        {/* Shopping Cart Modal */}
+        {showCart && (
+          <ShoppingCart
+            cartItems={cartItems}
+            onUpdateQuantity={handleUpdateQuantity}
+            onRemoveItem={handleRemoveItem}
+            onClose={handleCloseCart}
+            onProceedToOrder={handleProceedToOrder}
+          />
+        )}
+
+        {/* Order Form Modal */}
+        {showOrderForm && cartItems.length > 0 && (
           <OrderForm
-            menuItem={selectedMenuItem}
+            cartItems={cartItems}
             onClose={handleCloseOrderForm}
             onOrderSuccess={handleOrderSuccess}
             onOrderError={handleOrderError}

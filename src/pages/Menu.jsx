@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import MenuItem from '../components/MenuItem';
-import OrderForm from '../components/OrderForm'; // Import the OrderForm component
+import OrderForm from '../components/OrderForm';
+import ShoppingCart from '../components/ShoppingCart';
 import { endpoints } from '../api/apiConfig';
 
 const MenuPage = () => {
   const [menuItems, setMenuItems] = useState([]);
   const [showOrderForm, setShowOrderForm] = useState(false);
+  const [showCart, setShowCart] = useState(false);
+  const [cartItems, setCartItems] = useState([]);
   const [selectedMenuItem, setSelectedMenuItem] = useState(null);
   // const [alertMessage, setAlertMessage] = useState('');
   // const [alertType, setAlertType] = useState(''); // 'success' or 'error'
@@ -38,22 +41,63 @@ const MenuPage = () => {
       });
   };
 
-  const handleOrderClick = (item) => {
-    setSelectedMenuItem(item);
+  const handleAddToCart = (item) => {
+    const existingItem = cartItems.find(cartItem => cartItem.id === item.id);
+    if (existingItem) {
+      setCartItems(cartItems.map(cartItem => 
+        cartItem.id === item.id 
+          ? { ...cartItem, quantity: cartItem.quantity + 1 }
+          : cartItem
+      ));
+    } else {
+      setCartItems([...cartItems, { ...item, quantity: 1 }]);
+    }
+    
+    if (Notification.permission === 'granted') {
+      new Notification('Item Added', {
+        body: `${item.name} បានបន្ថែមទៅកន្ត្រកទិញ`,
+        icon: '/cafe_sakal_logo.png',
+      });
+    }
+  };
+
+  const handleUpdateCartQuantity = (itemId, newQuantity) => {
+    if (newQuantity <= 0) {
+      handleRemoveFromCart(itemId);
+      return;
+    }
+    setCartItems(cartItems.map(item => 
+      item.id === itemId ? { ...item, quantity: newQuantity } : item
+    ));
+  };
+
+  const handleRemoveFromCart = (itemId) => {
+    setCartItems(cartItems.filter(item => item.id !== itemId));
+  };
+
+  const handleShowCart = () => {
+    setShowCart(true);
+  };
+
+  const handleCloseCart = () => {
+    setShowCart(false);
+  };
+
+  const handleProceedToOrder = () => {
+    setShowCart(false);
     setShowOrderForm(true);
-    // setAlertMessage(''); // Clear any previous alerts (no longer needed for in-component alert)
   };
 
   const handleCloseOrderForm = () => {
     setShowOrderForm(false);
-    setSelectedMenuItem(null);
+    setCartItems([]);
   };
 
   const handleOrderSuccess = (message) => {
     if (Notification.permission === 'granted') {
       new Notification('Order Status', {
         body: message,
-        icon: '/cafe_sakal_logo.png', // Replace with your logo path
+        icon: '/cafe_sakal_logo.png',
       });
     }
     handleCloseOrderForm();
@@ -81,26 +125,54 @@ const MenuPage = () => {
           </div>
         )} */}
 
-        <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-center text-green-600 mb-8 sm:mb-12 font-['Hanuman'] animate__animated animate__fadeIn">
-          ស្វែងរកភេសជ្ជៈ និងអាហារពេញនិយម
-        </h2>
+        <div className="flex justify-between items-center mb-8 sm:mb-12">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-center text-green-600 font-['Hanuman'] animate__animated animate__fadeIn flex-1">
+            ស្វែងរកភេសជ្ជៈ និងអាហារពេញនិយម
+          </h2>
+          
+          {/* Cart Button */}
+          <button
+            onClick={handleShowCart}
+            className="relative bg-green-600 hover:bg-green-700 text-white p-3 rounded-full shadow-lg transition-colors duration-200"
+          >
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-1.5 6M7 13l-1.5-6M17 13v6a2 2 0 01-2 2H9a2 2 0 01-2-2v-6m8 0V9a2 2 0 00-2-2H9a2 2 0 00-2 2v4.01" />
+            </svg>
+            {cartItems.length > 0 && (
+              <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-6 w-6 flex items-center justify-center">
+                {cartItems.reduce((total, item) => total + item.quantity, 0)}
+              </span>
+            )}
+          </button>
+        </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-y-20 gap-x-14 mt-10 mb-5">
           {menuItems.map((item) => (
             <MenuItem
               key={item.id}
+              id={item.id}
               name={item.name}
               description={item.description}
               price={item.price}
               image={item.image}
-              onOrder={() => handleOrderClick(item)}
+              onAddToCart={handleAddToCart}
             />
           ))}
         </div>
       </div>
-      {showOrderForm && selectedMenuItem && (
+      {showCart && (
+        <ShoppingCart
+          cartItems={cartItems}
+          onUpdateQuantity={handleUpdateCartQuantity}
+          onRemoveItem={handleRemoveFromCart}
+          onClose={handleCloseCart}
+          onProceedToOrder={handleProceedToOrder}
+        />
+      )}
+      
+      {showOrderForm && cartItems.length > 0 && (
         <OrderForm
-          menuItem={selectedMenuItem}
+          cartItems={cartItems}
           onClose={handleCloseOrderForm}
           onOrderSuccess={handleOrderSuccess}
           onOrderError={handleOrderError}

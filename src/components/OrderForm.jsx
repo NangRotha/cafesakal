@@ -2,15 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { endpoints } from '../api/apiConfig';
 import QRCodeGenerator from './QRCodeGenerator';
 
-const OrderForm = ({ menuItem, onClose, onOrderSuccess, onOrderError }) => {
+const OrderForm = ({ cartItems, onClose, onOrderSuccess, onOrderError }) => {
   const [customerName, setCustomerName] = useState('');
-  const [quantity, setQuantity] = useState(1);
   const [notes, setNotes] = useState('');
   const [location, setLocation] = useState(''); // New state for location
   const [customerPhone, setCustomerPhone] = useState(''); // New state for customer phone
   const [loading, setLoading] = useState(false);
   const [discountAmount, setDiscountAmount] = useState(0);
-  // const [isWeekend, setIsWeekend] = useState(false); // No longer needed
   const [availableDiscounts, setAvailableDiscounts] = useState([]); // New state for discounts
   const [appliedDiscountName, setAppliedDiscountName] = useState(''); // New state for applied discount name
   const [showPayment, setShowPayment] = useState(false); // New state for payment step
@@ -27,7 +25,7 @@ const OrderForm = ({ menuItem, onClose, onOrderSuccess, onOrderError }) => {
 
   useEffect(() => {
     calculateEventDiscount();
-  }, [quantity, availableDiscounts]);
+  }, [cartItems, availableDiscounts]);
 
   const fetchDiscounts = async () => {
     try {
@@ -42,18 +40,25 @@ const OrderForm = ({ menuItem, onClose, onOrderSuccess, onOrderError }) => {
     }
   };
 
+  const calculateCartTotal = () => {
+    return cartItems.reduce((total, item) => {
+      const price = parseFloat(item.price.replace('៛', '').replace(',', '')) || parseFloat(item.price);
+      return total + (price * item.quantity);
+    }, 0);
+  };
+
   const calculateEventDiscount = () => {
     let newDiscount = 0;
     let discountName = '';
     const now = new Date();
-    const itemPrice = parseFloat(menuItem.price);
-    const totalBeforeDiscount = itemPrice * quantity;
+    const totalBeforeDiscount = calculateCartTotal();
 
     availableDiscounts.forEach(discount => {
       const startDate = new Date(discount.startDate);
       const endDate = new Date(discount.endDate);
 
-      if (now >= startDate && now <= endDate) {
+      // Only apply "កម្មង់" (order) discount, not "ទិញផ្ទាល់" (direct purchase) discount
+      if (now >= startDate && now <= endDate && discount.name === 'កម្មង់') {
         let currentDiscountValue = 0;
         if (discount.type === 'percentage') {
           currentDiscountValue = totalBeforeDiscount * (discount.value / 100);
@@ -61,7 +66,7 @@ const OrderForm = ({ menuItem, onClose, onOrderSuccess, onOrderError }) => {
           currentDiscountValue = discount.value;
         }
 
-        // Apply the highest discount
+        // Apply the discount if it's for orders
         if (currentDiscountValue > newDiscount) {
           newDiscount = currentDiscountValue;
           discountName = discount.name;
@@ -88,18 +93,22 @@ const OrderForm = ({ menuItem, onClose, onOrderSuccess, onOrderError }) => {
     setLoading(true);
 
     const orderData = {
-      menuItemId: menuItem.id,
-      menuItemName: menuItem.name,
+      items: cartItems.map(item => ({
+        menuItemId: item.id,
+        menuItemName: item.name,
+        quantity: item.quantity,
+        price: parseFloat(item.price.replace('៛', '').replace(',', '')) || parseFloat(item.price)
+      })),
       customerName,
-      quantity,
       notes,
-      location, // Include location in order data
-      customerPhone, // Include customer phone in order data
+      location,
+      customerPhone,
       orderDate: new Date().toISOString(),
-      discountApplied: discountAmount > 0, // Indicate if a discount was applied
+      discountApplied: discountAmount > 0,
       discountAmount: discountAmount,
-      appliedDiscountName: appliedDiscountName, // Include the name of the applied discount
-      finalPrice: (parseFloat(menuItem.price) * quantity) - discountAmount,
+      appliedDiscountName: appliedDiscountName,
+      subtotal: calculateCartTotal(),
+      finalPrice: calculateCartTotal() - discountAmount,
       paymentStatus: 'paid',
     };
 
@@ -154,7 +163,28 @@ const OrderForm = ({ menuItem, onClose, onOrderSuccess, onOrderError }) => {
         
         {!showPayment ? (
           <>
-            <h2 className="text-2xl font-bold text-gray-800 mb-4">កុម្ម៉ង់ {menuItem.name}</h2>
+            <h2 className="text-2xl font-bold text-gray-800 mb-4">បញ្ជាក់កុម្ម៉ង់</h2>
+            
+            {/* Cart Items Summary */}
+            <div className="mb-6 bg-gray-50 rounded-lg p-4">
+              <h3 className="text-lg font-semibold text-gray-800 mb-3">ផលិតផលដែលបានកុម្ម៉ង់:</h3>
+              <div className="space-y-3">
+                {cartItems.map((item) => (
+                  <div key={item.id} className="flex items-center justify-between bg-white p-3 rounded-lg shadow-sm">
+                    <div className="flex items-center space-x-3">
+                      <img src={item.image} alt={item.name} className="w-12 h-12 object-cover rounded-lg" />
+                      <div>
+                        <p className="font-medium text-gray-800">{item.name}</p>
+                        <p className="text-sm text-gray-600">បរិមាណ: {item.quantity}</p>
+                      </div>
+                    </div>
+                    <p className="font-semibold text-green-600">
+                      ${((parseFloat(item.price.replace('៛', '').replace(',', '')) || parseFloat(item.price)) * item.quantity).toFixed(2)}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
             <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <label htmlFor="customerName" className="block text-gray-700 text-sm font-bold mb-2">ឈ្មោះរបស់អ្នក:</label>
@@ -175,18 +205,6 @@ const OrderForm = ({ menuItem, onClose, onOrderSuccess, onOrderError }) => {
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               value={customerPhone}
               onChange={(e) => setCustomerPhone(e.target.value)}
-              required
-            />
-          </div>
-          <div className="mb-4">
-            <label htmlFor="quantity" className="block text-gray-700 text-sm font-bold mb-2">បរិមាណ:</label>
-            <input
-              type="number"
-              id="quantity"
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              value={quantity}
-              onChange={(e) => setQuantity(Math.max(1, parseInt(e.target.value) || 1))}
-              min="1"
               required
             />
           </div>
@@ -212,12 +230,12 @@ const OrderForm = ({ menuItem, onClose, onOrderSuccess, onOrderError }) => {
             />
           </div>
 
-          <div className="text-right mb-4">
-            <p className="text-lg font-bold text-gray-800">តម្លៃដើម: ${ (parseFloat(menuItem.price) * quantity).toFixed(2) }</p>
+          <div className="text-right mb-4 bg-gray-50 p-4 rounded-lg">
+            <p className="text-lg font-bold text-gray-800">តម្លៃដើម: ${calculateCartTotal().toFixed(2)}</p>
             {discountAmount > 0 && (
               <p className="text-red-500 font-semibold">បញ្ចុះតម្លៃ: -${discountAmount.toFixed(2)} ({appliedDiscountName})</p>
             )}
-            <p className="text-xl font-extrabold text-green-600">តម្លៃចុងក្រោយ: ${((parseFloat(menuItem.price) * quantity) - discountAmount).toFixed(2)}</p>
+            <p className="text-xl font-extrabold text-green-600">តម្លៃចុងក្រោយ: ${(calculateCartTotal() - discountAmount).toFixed(2)}</p>
           </div>
 
               <div className="flex items-center justify-between">
@@ -244,14 +262,14 @@ const OrderForm = ({ menuItem, onClose, onOrderSuccess, onOrderError }) => {
             <h2 className="text-2xl font-bold text-gray-800 mb-4">ការទូទាត់</h2>
             <div className="text-center mb-6">
               <p className="text-lg font-semibold text-gray-700 mb-4">
-                សរុបចំនួនទឹកប្រាក់: ${((parseFloat(menuItem.price) * quantity) - discountAmount).toFixed(2)}
+                សរុបចំនួនទឹកប្រាក់: ${(calculateCartTotal() - discountAmount).toFixed(2)}
               </p>
               <p className="text-sm text-gray-600 mb-4">
                 ស្កេន QR កូដខាងក្រោមដើម្បីធ្វើការទូទាត់:
               </p>
               <div className="flex justify-center mb-4">
                 <QRCodeGenerator 
-                  amount={((parseFloat(menuItem.price) * quantity) - discountAmount).toFixed(2)}
+                  amount={(calculateCartTotal() - discountAmount).toFixed(2)}
                   size={192}
                 />
               </div>

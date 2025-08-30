@@ -100,67 +100,81 @@
   ],
   "orders": [
     {
-      "id": "997a",
-      "menuItemId": "2",
-      "menuItemName": "ឡាតេ (Latte)",
-      "customerName": "rotha",
-      "quantity": 1,
+      "id": "05e4",
+      "items": [
+        {
+          "menuItemId": "5",
+          "menuItemName": "អាវ៉ូកាដូតូស្ត (Avocado Toast)",
+          "quantity": 1,
+          "price": 5
+        },
+        {
+          "menuItemId": "6",
+          "menuItemName": "ផាមភីនស្ពាយឡាតេ (Pumpkin Spice Latte)",
+          "quantity": 1,
+          "price": 5
+        }
+      ],
+      "customerName": "roth",
       "notes": "hello",
       "location": "kamchaymear, prey veng",
-      "customerPhone": "500144565",
-      "orderDate": "2025-08-29T13:36:41.807Z",
+      "customerPhone": "+1 (971) 744-7224",
+      "orderDate": "2025-08-30T12:25:12.891Z",
       "discountApplied": true,
       "discountAmount": 2,
       "appliedDiscountName": "កម្មង់",
+      "subtotal": 10,
       "finalPrice": 8,
       "paymentStatus": "paid"
     },
     {
-      "id": "3abb",
-      "menuItemId": "5",
-      "menuItemName": "អាវ៉ូកាដូតូស្ត (Avocado Toast)",
-      "customerName": "Randall Alvarez",
-      "quantity": 2,
-      "notes": "Sapiente tempore ut",
-      "location": "Laborum Consequat ",
-      "customerPhone": "+1 (661) 456-4658",
-      "orderDate": "2025-08-29T13:45:03.348Z",
-      "discountApplied": true,
-      "discountAmount": 5,
-      "appliedDiscountName": "កម្មង់",
-      "finalPrice": 5,
-      "paymentStatus": "paid"
-    },
-    {
-      "id": "c76b",
-      "menuItemId": "5",
-      "menuItemName": "អាវ៉ូកាដូតូស្ត (Avocado Toast)",
-      "customerName": "Randall Alvarez",
-      "quantity": 2,
-      "notes": "Sapiente tempore ut",
-      "location": "Laborum Consequat ",
-      "customerPhone": "+1 (661) 456-4658",
-      "orderDate": "2025-08-29T13:45:04.975Z",
-      "discountApplied": true,
-      "discountAmount": 5,
-      "appliedDiscountName": "កម្មង់",
-      "finalPrice": 5,
-      "paymentStatus": "paid"
-    },
-    {
-      "id": "1f62",
-      "menuItemId": "3",
-      "menuItemName": "កូលប៊្រូ (Cold Brew)",
-      "customerName": "hohp",
-      "quantity": 3,
+      "id": "566f",
+      "items": [
+        {
+          "menuItemId": "5",
+          "menuItemName": "អាវ៉ូកាដូតូស្ត (Avocado Toast)",
+          "quantity": 1,
+          "price": 5
+        },
+        {
+          "menuItemId": "6",
+          "menuItemName": "ផាមភីនស្ពាយឡាតេ (Pumpkin Spice Latte)",
+          "quantity": 1,
+          "price": 5
+        }
+      ],
+      "customerName": "roth",
       "notes": "hello",
       "location": "kamchaymear, prey veng",
-      "customerPhone": "01234",
-      "orderDate": "2025-08-29T13:47:25.964Z",
+      "customerPhone": "+1 (971) 744-7224",
+      "orderDate": "2025-08-30T12:25:14.751Z",
       "discountApplied": true,
-      "discountAmount": 6,
+      "discountAmount": 2,
       "appliedDiscountName": "កម្មង់",
-      "finalPrice": 24,
+      "subtotal": 10,
+      "finalPrice": 8,
+      "paymentStatus": "paid"
+    },
+    {
+      "id": "6b96",
+      "items": [
+        {
+          "menuItemId": "1",
+          "menuItemName": "អេសប្រេសសូ (Espresso)",
+          "quantity": 1,
+          "price": 12
+        }
+      ],
+      "customerName": "Emily Goodman",
+      "notes": "Et cillum ipsam ipsu",
+      "location": "Atque iusto quia in ",
+      "customerPhone": "+1 (718) 203-3384",
+      "orderDate": "2025-08-30T12:26:26.992Z",
+      "discountApplied": true,
+      "discountAmount": 2.4000000000000004,
+      "appliedDiscountName": "កម្មង់",
+      "subtotal": 12,
+      "finalPrice": 9.6,
       "paymentStatus": "paid"
     }
   ],

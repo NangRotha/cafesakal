@@ -788,11 +788,21 @@ const Dashboard = () => {
                   {orders.map((order) => (
                     <tr key={order.id}>
                       <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{order.id}</td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{order.menuItemName}</td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        {order.items ? 
+                          order.items.map(item => item.menuItemName).join(', ') : 
+                          order.menuItemName || 'មុខម្ហូប'
+                        }
+                      </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{order.customerName}</td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{order.customerPhone}</td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{order.location}</td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{order.quantity}</td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        {order.items ? 
+                          order.items.reduce((total, item) => total + item.quantity, 0) : 
+                          order.quantity || 0
+                        }
+                      </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{order.notes || '-'}</td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{new Date(order.orderDate).toLocaleString()}</td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{order.discountApplied ? 'បាទ/ចាស' : 'ទេ'}</td>

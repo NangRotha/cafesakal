@@ -1,3 +1,12 @@
+// const API_BASE_URL = 'http://localhost:3000/';
+
+// export const endpoints = {
+//   menuItems: `http://localhost:3000/menuItems`,
+//   orders: `http://localhost:3000/orders`,
+//   discounts: `http://localhost:3000/discounts`,
+//   contactMessages: `http://localhost:3000/contactMessages`,
+//   users: 'http://localhost:3000/users',
+// };
 const API_BASE_URL = 'https://nangrotha.github.io/host_api';
 
 export const endpoints = {
